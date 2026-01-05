@@ -6,26 +6,30 @@
 //
 
 import SwiftUI
-import Dependencies
-import SQLiteData
 
 struct NotesList: View {
 
-    @FetchAll
-    var notes: [Note]
+    let viewModel: NotesListViewModel
 
     @Binding var selectedNote: Note?
 
     var body: some View {
-        List(notes, id: \.self, selection: $selectedNote) { note in
+        List(viewModel.notes, id: \.self, selection: $selectedNote) { note in
             VStack {
                 Text(note.date)
             }
             .frame(height: 60)
             .contentShape(.rect)
         }
-        .onChange(of: selectedNote, { oldValue, newValue in
-            print("Selection changed from \(String(describing: oldValue)) to: \(String(describing: newValue))")
-        })
+        .contextMenu(forSelectionType: Note.self) { selection in
+            Button("Rename", systemImage: "pencil") {
+                
+            }
+            Button("Delete", systemImage: "trash") {
+                Task {
+                    await viewModel.deleteNotes(selection)
+                }
+            }
+        }
     }
 }

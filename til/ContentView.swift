@@ -24,7 +24,7 @@ struct ContentView: View {
                 Text("Todo")
             }
         } content: {
-            NotesList(selectedNote: $selectedNote)
+            NotesList(viewModel: NotesListViewModel(), selectedNote: $selectedNote)
         } detail: {
             if let selectedNote {
                 NoteDetailView(viewModel: NoteDetailViewModel(note: selectedNote))
