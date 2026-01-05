@@ -1,5 +1,5 @@
 //
-//  NoteView.swift
+//  CreateNoteView.swift
 //  til
 //
 //  Created by Кирилл Гусев on 04.01.2026.
@@ -8,9 +8,9 @@
 import SwiftUI
 import Foundation
 
-struct NoteView: View {
+struct CreateNoteView: View {
 
-    var viewModel: NoteViewModel
+    let viewModel: CreateNoteViewModel
 
     @Environment(\.dismissWindow) private var dismissWindow
 
@@ -30,18 +30,14 @@ struct NoteView: View {
                 TextField("Type some text", text: $text)
 
                 Button {
-                    var success = false
-                    
                     Task {
                         do {
-                            success = try await viewModel.createNote(date: date, body: text)
+                            let success = try await viewModel.createNote(date: date, body: text)
+                            success ? dismissWindow(id: "note") : print("Error with closing window!")
                         } catch {
                             print("Error with creating note after tap: \(error)")
                         }
                     }
-
-                    success ? dismissWindow(id: "note") : print("Error with closing window!")
-
                 } label: {
                     Label("Add", systemImage: "plus")
                 }

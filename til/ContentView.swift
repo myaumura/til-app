@@ -15,15 +15,20 @@ struct ContentView: View {
     
     @Environment(\.openWindow) private var openWindow
     
+    @State private var selectedNote: Note?
+    
     var body: some View {
         NavigationSplitView {
             List {
                 Text("Learned")
                 Text("Todo")
             }
+        } content: {
+            NotesList(selectedNote: $selectedNote)
         } detail: {
-            Text("Content")
-                .navigationTitle("Content View")
+            if let selectedNote {
+                NoteDetailView(viewModel: NoteDetailViewModel(note: selectedNote))
+            }
         }
         .toolbar {
             Button("", systemImage: "plus") {

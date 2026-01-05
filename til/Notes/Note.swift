@@ -9,7 +9,7 @@ import Foundation
 import SQLiteData
 
 @Table
-struct Note: Codable {
+struct Note: Codable, Hashable {
     let id: UUID
     let date: String
     let file: String

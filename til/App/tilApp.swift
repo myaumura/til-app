@@ -31,7 +31,7 @@ struct tilApp: App {
         .windowToolbarStyle(.unified)
 
         Window("New Note", id: "note") {
-            NoteView(viewModel: NoteViewModel())
+            CreateNoteView(viewModel: CreateNoteViewModel())
         }
     }
     
