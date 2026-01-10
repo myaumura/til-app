@@ -27,12 +27,18 @@ struct tilApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .frame(minWidth: 800, minHeight: 500)
         }
+        .defaultPosition(.center)
         .windowToolbarStyle(.unified)
+        .windowResizability(.contentSize)
 
         Window("New Note", id: "note") {
             CreateNoteView(viewModel: CreateNoteViewModel())
         }
+        .defaultSize(width: 150, height: 150)
+        .windowResizability(.contentMinSize)
+        .defaultPosition(.center)
     }
     
     func createFileStorage() {
